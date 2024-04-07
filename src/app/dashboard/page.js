@@ -1,4 +1,4 @@
-import {getAllBoardsByUserId} from '@/api/boards'
+import {getAllBoardsByUserId} from '@/api/dashboard'
 
 export default async function Main() {
     const allBoards = await getAllBoardsByUserId(1)
