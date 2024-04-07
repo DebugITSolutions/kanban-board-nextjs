@@ -3,6 +3,7 @@
 import {useInput} from "@/hooks/useInput";
 import {useRouter} from "next/navigation";
 import {signIn} from "@/api/auth";
+import Cookies from "js-cookie";
 
 export default function SignInForm() {
     const email = useInput('')
@@ -15,8 +16,7 @@ export default function SignInForm() {
             email.value,
             password.value
         )
-        console.log(response)
-        localStorage.setItem('accessToken', response.accessToken)
+        Cookies.set('accessToken', response.accessToken)
         router.push('/')
     }
 
