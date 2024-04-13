@@ -1,5 +1,6 @@
 import axios from "axios";
-import {getAccessToken, setAccessToken} from "@/utils/authTokenService"
+import {getAccessToken, getRefresh} from "@/api/auth";
+import {errorCatch} from "@/api/error";
 
 export const API_URL = 'http://localhost:5000'
 
@@ -17,10 +18,15 @@ $api.interceptors.response.use((config) => {
     return config
 }, async (error) => {
     const ogRequest = error.config
-    if (error.response.status === 401) {
+    if ((error.response.status === 401
+        || errorCatch(error) === 'jwt expired'
+        || errorCatch(error) === 'jwt must be provided'
+        )
+        && !error.config._isRetry)
+    {
         try {
-            const response = await axios.get(`${API_URL}/auth/refresh`, {withCredentials: true})
-            // setAccessToken(response.data.accessToken) ???
+            error.config._isRetry = true
+            await getRefresh()
             return $api.request(ogRequest)
         } catch(e) {
             console.log(e.message)
