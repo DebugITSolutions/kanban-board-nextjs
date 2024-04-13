@@ -1,5 +1,5 @@
 import axios from "axios";
-import {getAccessToken, setAccessToken} from "@/utils/authTokenService"
+import {getAccessToken, getAndSaveToken} from "@/api/auth";
 
 export const API_URL = 'http://localhost:5000'
 
@@ -17,10 +17,10 @@ $api.interceptors.response.use((config) => {
     return config
 }, async (error) => {
     const ogRequest = error.config
-    if (error.response.status === 401) {
+    if (error.response.status === 401 && !error.config._isRetry) {
         try {
-            const response = await axios.get(`${API_URL}/auth/refresh`, {withCredentials: true})
-            // setAccessToken(response.data.accessToken) ???
+            error.config._isRetry = true
+            await getAndSaveToken()
             return $api.request(ogRequest)
         } catch(e) {
             console.log(e.message)
