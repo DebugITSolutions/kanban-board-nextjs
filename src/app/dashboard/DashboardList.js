@@ -4,7 +4,7 @@ import {useEffect, useState} from "react";
 import {getAllBoardsByUserId} from "@/api/dashboard";
 import BoardButton from "@/components/BoardButton/BoardButton";
 
-export default function DashboardList({state}) {
+export default function DashboardList({boardListOpen}) {
     const [boards, setBoards] = useState(null)
     useEffect(() => {
         const getBoards = async () => {
@@ -16,7 +16,7 @@ export default function DashboardList({state}) {
 
 
     return (
-        <div className={`h-full w-48 px-4 py-2 font-sans text-gray-900 border-r border-grey-600 transition-all ease-in-out duration-500 delay-100 overflow-hidden ${state ? 'w-0 px-0' : ''}`}>
+        <div className={`h-full w-48 px-4 py-2 font-sans text-gray-900 border-r border-grey-600 transition-all ease-in-out duration-500 delay-100 overflow-hidden ${boardListOpen ? '' : 'w-0 px-0'}`}>
             <h1 className={'text-lg font-semibold mb-3'}>Boards</h1>
             <ul className={'flex flex-col gap-2 mb-10'}>
                 {

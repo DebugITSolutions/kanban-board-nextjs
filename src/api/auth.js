@@ -23,6 +23,14 @@ export const signIn = async (email, password) => {
     return response.data
 }
 
+export const signOut = async (email) => {
+    try {
+         return await axios.put(`${API_URL}/auth/sign-out`, {email}, {withCredentials: true})
+    } catch (e) {
+        console.log(e.message)
+    }
+}
+
 export const getAccessToken = () => {
     return Cookies.get('accessToken')
 }
