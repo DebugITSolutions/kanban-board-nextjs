@@ -2,8 +2,9 @@
 
 import {useEffect, useState} from "react";
 import {getAllBoardsByUserId} from "@/api/dashboard";
+import BoardButton from "@/components/BoardButton/BoardButton";
 
-export default function DashboardList() {
+export default function DashboardList({state}) {
     const [boards, setBoards] = useState(null)
     useEffect(() => {
         const getBoards = async () => {
@@ -15,14 +16,19 @@ export default function DashboardList() {
 
 
     return (
-        <ul>
-            {
-                boards
-                    ?
-                    boards.map(board => (<p key={board.id}>{board.title}</p>))
-                    :
-                    <div>Loading...</div>
-            }
-        </ul>
+        <div className={`h-full w-48 px-4 py-2 font-sans text-gray-900 border-r border-grey-600 transition-all ease-in-out duration-500 delay-100 overflow-hidden ${state ? 'w-0 px-0' : ''}`}>
+            <h1 className={'text-lg font-semibold mb-3'}>Boards</h1>
+            <ul className={'flex flex-col gap-2 mb-10'}>
+                {
+                    boards
+                        ?
+                        boards.map(board => (<BoardButton key={board.id} title={board.title}/>))
+                        :
+                        <div>Loading...</div>
+                }
+            </ul>
+
+            <h1 className={'text-lg font-semibold mb-3'}>Team</h1>
+        </div>
     )
 }
