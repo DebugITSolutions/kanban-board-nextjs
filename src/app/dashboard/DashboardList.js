@@ -14,9 +14,8 @@ export default function DashboardList({boardListOpen}) {
         getBoards()
     }, []);
 
-
     return (
-        <div className={`h-full w-48 px-4 py-2 font-sans text-gray-900 border-r border-grey-600 transition-all ease-in-out duration-500 delay-100 overflow-hidden ${boardListOpen ? '' : 'w-0 px-0'}`}>
+        <div className={`absolute left-16 bg-white h-full py-2 font-sans text-gray-900 border-r border-grey-600 transition-all ease-in-out duration-500 delay-100 overflow-hidden ${boardListOpen ? 'w-48 px-4' : 'w-0 px-0'}`}>
             <h1 className={'text-lg font-semibold mb-3'}>Boards</h1>
             <ul className={'flex flex-col gap-2 mb-10'}>
                 {

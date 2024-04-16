@@ -5,7 +5,6 @@ export async function middleware(request, response) {
     const {url, cookies} = request
 
     const refreshToken = cookies.get('refreshToken')?.value
-
     const isAuth = url.includes('/auth')
 
     if (isAuth && refreshToken) {

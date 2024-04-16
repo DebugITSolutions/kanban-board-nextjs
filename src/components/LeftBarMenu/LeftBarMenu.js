@@ -15,7 +15,7 @@ function LeftBarMenu() {
     }
 
     return (
-        <div className={'flex'}>
+        <div className={'flex relative'}>
             <div className={'h-full w-16 border-r border-grey bg-white flex flex-col py-4'}>
                 <img src="" alt="LOGO"/>
                 <div className={'flex flex-col mt-14 gap-5'}>
